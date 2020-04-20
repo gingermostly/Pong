@@ -34,6 +34,36 @@ ball.color("white")
 ball.penup()
 ball.goto(0, 0)
 
+#Function for moving paddles
+
+def paddle_a_up():
+    y = paddle_a.ycor()
+    y += 20
+    paddle_a.sety(y)
+
+def paddle_a_down():
+    y = paddle_a.ycor()
+    y -= 20
+    paddle_a.sety(y)
+
+
+def paddle_b_up():
+    y = paddle_b.ycor()
+    y += 20
+    paddle_b.sety(y)
+
+def paddle_b_down():
+    y = paddle_b.ycor()
+    y -= 20
+    paddle_b.sety(y)
+
+#Keyboard binding
+wn.listen() #create event listener
+wn.onkeypress(paddle_a_up, "w") #call paddle_a_up function to increase y coordinate by 20px when lowercase w key is pressed
+wn.onkeypress(paddle_a_down, "s")#call paddle_a_down function to decrease y coordinate by 20px when lowercase s key is pressed
+wn.onkeypress(paddle_b_up, "Up") #call paddle_b_up function when up arrow key is pressed
+wn.onkeypress(paddle_b_down, "Down") #call paddle_b_down function when down arrow key is pressed
+
 #Main game loop
 
 while True:
