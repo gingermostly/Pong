@@ -1,6 +1,7 @@
 #Simple Pong app built in Python
 
 import turtle
+import winsound
 
 wn = turtle.Screen()
 wn.title("Pong")
@@ -93,14 +94,17 @@ while True:
     if ball.ycor() > 290: 
         ball.sety(290)
         ball.dy *= -1 #reset y coord and change direction when ball hits top border of screen
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
 
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
         score_a += 1 #increase player A score when ball goes off right side of screen
         pen.clear() #clear previous score info before printing new score
         pen.write("Player A: {} Player B: {}".format(score_a, score_b), align="center",
@@ -109,6 +113,7 @@ while True:
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
         score_b += 1 
         pen.clear()
         pen.write("Player A: {} Player B: {}".format(score_a, score_b), align="center",
@@ -118,6 +123,8 @@ while True:
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
