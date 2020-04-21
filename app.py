@@ -8,6 +8,11 @@ wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0) #stop window from updating to improve speed and performance
 
+#Score
+
+score_a = 0
+score_b = 0
+
 #Paddle A
 paddle_a = turtle.Turtle()
 paddle_a.speed(0) #set animation speed to maximum
@@ -31,10 +36,20 @@ ball = turtle.Turtle()
 ball.speed(0)
 ball.shape("square")
 ball.color("white")
-ball.penup()
+ball.penup() #prevents line from being drawn on screen
 ball.goto(0, 0)
-ball.dx = 0.1
-ball.dy = -0.1
+ball.dx = 0.2
+ball.dy = -0.2
+
+#Pen 
+
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle() #hide turtle so we are only displaying text
+pen.goto(0, 260)
+pen.write("Player A: 0 Player B: 0", align="center", font=("Courier", 24, "normal"))
 
 #Function for moving paddles
 
@@ -86,15 +101,23 @@ while True:
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_a += 1 #increase player A score when ball goes off right side of screen
+        pen.clear() #clear previous score info before printing new score
+        pen.write("Player A: {} Player B: {}".format(score_a, score_b), align="center",
+                  font=("Courier", 24, "normal"))
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_b += 1 
+        pen.clear()
+        pen.write("Player A: {} Player B: {}".format(score_a, score_b), align="center",
+                  font=("Courier", 24, "normal"))
 
     #Paddle and ball collisions
-    if (ball.xcor() > 340 and ball.xcor() > 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.xcor() > paddle_b.xcor() - 40):
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
-    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.xcor() > paddle_a.xcor() - 40):
+    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1
