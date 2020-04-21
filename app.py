@@ -34,7 +34,7 @@ ball.color("white")
 ball.penup()
 ball.goto(0, 0)
 ball.dx = 0.1
-ball.dy = 0.1
+ball.dy = -0.1
 
 #Function for moving paddles
 
@@ -69,6 +69,24 @@ wn.onkeypress(paddle_b_down, "Down") #call paddle_b_down function when down arro
 
 while True:
     wn.update() #update screen each time loop runs
+
     #Move the ball
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
+
+    #Border checking
+    if ball.ycor() > 290: 
+        ball.sety(290)
+        ball.dy *= -1 #reset y coord and change direction when ball hits top border of screen
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+
+    if ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
